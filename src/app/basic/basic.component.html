@@ -1,0 +1,27 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
+
+<ng-container matColumnDef="position">
+
+  <!-- define column name -->
+
+  <!-- mat-sort-header  to add sorting -->
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="position"  >Number</th>
+
+    <td mat-cell *matCellDef="let row">{{row.position}}</td>
+
+
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columndefs"></tr>
+  <tr mat-row *matRowDef="let row; columns: columndefs;"></tr>
+
+  </table>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Favorite food</mat-label>
+    <mat-select [(ngModel)]="selectedValue" name="food">
+      <mat-option *ngFor="let food of dataSource" [value]="food.name">
+        {{food.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
