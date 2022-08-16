@@ -20,6 +20,7 @@ export class BasicComponent implements OnInit {
   ];
   columndefs  = ['position'];
   selectedValue = '';
+  
   sortData(sort) {
     const data = this.dataSource.slice();
     if (!sort.active || sort.direction === '') {
