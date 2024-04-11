@@ -6,6 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./basic.component.scss']
 })
 export class BasicComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.dataSource.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+
+  }
+
   dataSource = [
     { position: 1, name: "Hydrogen", weight: 1.0079, symbol: "H" },
     { position: 2, name: "Helium", weight: 4.0026, symbol: "He" },
@@ -20,7 +28,7 @@ export class BasicComponent implements OnInit {
   ];
   columndefs  = ['position'];
   selectedValue = '';
-  
+
   sortData(sort) {
     const data = this.dataSource.slice();
     if (!sort.active || sort.direction === '') {
@@ -40,11 +48,6 @@ export class BasicComponent implements OnInit {
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
-  constructor() { }
 
-  ngOnInit(): void {
-    this.dataSource.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
-
-  }
 
 }

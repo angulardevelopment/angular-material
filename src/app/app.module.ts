@@ -9,6 +9,7 @@ import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     MatSortModule,
     MatSelectModule,
     FormsModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
