@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {DropdownModule} from 'primeng/dropdown';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialComponent } from './material/material.component';
@@ -24,7 +24,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatSortModule,
     MatSelectModule,
     FormsModule,
-    MatRadioModule
+    MatRadioModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
