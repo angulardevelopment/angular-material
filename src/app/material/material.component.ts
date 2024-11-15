@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { makeTitleChecker } from '../test.directive';
+import { titleCheckerFn } from '../title-checker.directive';
 
 @Component({
   selector: 'app-material',
@@ -7,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaterialComponent implements OnInit {
 
-  constructor() { }
 
   ngOnInit(): void {
     this.dataSource.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
@@ -47,6 +49,22 @@ export class MaterialComponent implements OnInit {
 
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  // Call factory with parameters (reactive forms)
+  readonly form: FormGroup;
+  readonly newform: FormGroup;
+  title;
+  constructor() {
+  this.form = new FormGroup({
+  [ControlName.TITLE]: new FormControl('', makeTitleChecker(5)),
+  [ControlName.BODY]: new FormControl(''),
+  });
+
+  this.newform = new FormGroup({
+    [ControlName.TITLE]: new FormControl('', titleCheckerFn),
+    [ControlName.BODY]: new FormControl(''),
+    });
   }
 
 

@@ -39,3 +39,8 @@
   <li><a href="#">item 2</a></li>
   <li><a href="#">item 3</a></li>
   </ul>
+
+  Use directives to bind to validators
+  <mat-error *ngIf="title.hasError('titleChecker')">
+    {{title.getError('titleChecker')}}
+  </mat-error>
