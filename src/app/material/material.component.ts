@@ -1,3 +1,4 @@
+import { ControlName } from './../title-checker.directive';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { makeTitleChecker } from '../test.directive';
@@ -66,6 +67,19 @@ export class MaterialComponent implements OnInit {
     [ControlName.BODY]: new FormControl(''),
     });
   }
+  saving: boolean = false;
 
+  save(): void {
+    this.saving = true;
+    // Juggle 5 hens while wiggling your toes and other magic... 🤡
+  }
+  isLoading = false;
 
+  onButtonClick() {
+    this.isLoading = true;
+    // Simulate an API call or action
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000); // Simulate 3 seconds of loading
+  }
 }

@@ -20,6 +20,7 @@ export function makeTitleChecker(min: number): ValidatorFn {
 // …
 const titleCheckerFn: ValidatorFn = (control: AbstractControl) => {
 // …
+const title = 'test';
 if (title.length < min) {
 return {'titleChecker': 'Title has too few non-blank characters'};
 }

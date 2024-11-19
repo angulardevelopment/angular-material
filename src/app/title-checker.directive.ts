@@ -17,8 +17,9 @@ return titleCheckerFn(control);
 }
 }
 
-export type ControlName = {
-
+export enum ControlName  {
+  TITLE =  'TITLE',
+  BODY = 'BODY'
 }
 
   

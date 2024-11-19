@@ -10,11 +10,16 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
+import { NgxLoadingButtonsModule } from 'ngx-loading-buttons';
+import { PrimengComponent } from './primeng/primeng.component';
+import {MatButtonModule} from '@angular/material/button';
+import { NgxLoadingModule } from "ngx-loading";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MaterialComponent
+    MaterialComponent,
+    PrimengComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,10 @@ import {MatRadioModule} from '@angular/material/radio';
     MatSelectModule,
     FormsModule,
     MatRadioModule,
-    DropdownModule
+    DropdownModule,
+    NgxLoadingButtonsModule,
+    NgxLoadingModule.forRoot({}),
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

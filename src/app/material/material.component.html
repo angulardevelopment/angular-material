@@ -1,3 +1,4 @@
+<div *ngIf="false">
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
 
 <ng-container matColumnDef="position">
@@ -41,6 +42,23 @@
   </ul>
 
   Use directives to bind to validators
-  <mat-error *ngIf="title.hasError('titleChecker')">
+  <!-- <mat-error *ngIf="title.hasError('titleChecker')">
     {{title.getError('titleChecker')}}
-  </mat-error>
+  </mat-error> -->
+</div>
+
+  <!-- <button mat-raised-button
+        [ngxLoading]="isLoading"
+        (click)="onButtonClick()">
+  Submit
+</button>
+<button mat-raised-button
+        [ngxLoading]="isLoading"
+        [ngxLoadingType]="'circle'"
+        [ngxLoadingColor]="'accent'"
+        (click)="onButtonClick()">
+  Submit
+</button> -->
+<button mat-raised-button [mtBasicSpinner]="true">Basic</button>
+<button mat-raised-button [mtBasicSpinner]="true" [hideText]="true">Basic</button>
+<button mat-raised-button [mtBasicSpinner]="saving" (click)="save()">Basic</button>
