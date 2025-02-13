@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { VERSION } from '@angular/material/core';
+import { Router, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,15 @@ import { VERSION } from '@angular/material/core';
 export class AppComponent {
   title = 'material';
 
-  constructor(){
-    console.log(VERSION, 'VERSION');
-    
-  }
+  routes: Routes = [];
 
+  constructor(private router: Router) {}
+
+  ngAfterViewInit(): void {
+    // Fetch the routes from the router
+    this.routes = this.router.config;
+    console.log(this.routes, VERSION);
+  }
 
 
 
