@@ -1,0 +1,59 @@
+<p>user works!</p>
+<img [ngSrc]="`https://i.pravatar.cc/150?u=1`" width="100" height="100" />
+
+<img [ngSrc]="`https://i.pravatar.cc/150?u=${userId()}`" width="100" height="100" />
+<p>{{ `User id: ${userId()}` }}</p>
+Output: An image and text displaying "User id: [actual_user_id]".
+<hr>
+<p>greet{{ greet`Hello, ${name()}` }}</p>
+Output: <p>Hello, John!</p>
+<hr>
+{{ 2 ** 3 }}
+<hr>
+@for (attack of attacks; track attack) { @let hasMagicDamage = 'magicDamage' in attack; 
+@if (hasMagicDamage) { <p>{{
+  `Dealt ${attack.magicDamage} points of magic damage.` }}</p> } 
+  @let hasPhysicalDamage = 'physicalDamage' in attack;
+@if (hasPhysicalDamage) { <p>{{ `Dealt ${attack.physicalDamage} points of physical damage.` }}</p> } }
+Output: Lists damage dealt, only showing magic or physical damage if present in the attack object.
+<hr>
+<ng-container #container />
+<hr>
+<ng-container [ngComponentOutlet]="myComponent" [ngComponentOutletInputs]="myComponentInput()"
+  [ngComponentOutletContent]="contentNodes()" 
+  [ngComponentOutletInjector]="myInjector" #outlet="ngComponentOutlet" />
+<ng-template #emptyState>
+  <p>Empty State</p>
+</ng-template>
+<button (click)="createComponent()">Create Component</button>
+<button (click)="destroyComponent()">Destroy Component</button>
+
+<hr>
+<button [disabled]="hasPermission() && (task()?.disabled ?? true)">
+  Run
+</button>
+<hr>
+<div *appFeatureFlag="true"></div>
+<hr>
+<h2>Child Component property: {{ property() }}</h2>
+<hr>
+<!-- {{ dataStream.value() }} -->
+<hr>
+<!-- {{ userResource.value() | json }} -->
+  <hr>
+  @defer (hydrate on viewport) {
+  <!-- <shopping-cart/> -->
+}
+<hr>
+<!-- n on power two -->
+{{ 8 ** 2 }}
+
+<!-- checks if the person object contains the name property -->
+<!-- {{ name in person }} -->
+
+<hr>
+<div [class]="`layout col-${colWidth}`"></div>
+<hr>
+<!-- @for (user of users; track trackFn) {
+      <!-- ... ->
+    } -->

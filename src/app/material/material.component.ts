@@ -7,7 +7,8 @@ import { titleCheckerFn } from '../title-checker.directive';
 @Component({
   selector: 'app-material',
   templateUrl: './material.component.html',
-  styleUrls: ['./material.component.scss']
+  styleUrls: ['./material.component.scss'],
+  standalone: false
 })
 export class MaterialComponent implements OnInit {
 
