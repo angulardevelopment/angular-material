@@ -1,13 +1,15 @@
-import { NgComponentOutlet, NgOptimizedImage } from '@angular/common';
-import { Component, ComponentRef, computed, inject, Injector, input, inputBinding, LOCALE_ID, model, output, outputBinding, resource, Signal, signal, TemplateRef, twoWayBinding, Type, viewChild, ViewContainerRef, createComponent } from '@angular/core';
+import { JsonPipe, NgComponentOutlet, NgOptimizedImage } from '@angular/common';
+import { Component, ComponentRef, computed, inject, Injector, input, inputBinding, LOCALE_ID, model, output, outputBinding, resource, Signal, signal, TemplateRef, twoWayBinding, Type, viewChild, ViewContainerRef, createComponent, ResourceStreamItem } from '@angular/core';
 import { Dummy } from '../../dummy/dummy';
 import { Analytics } from '../../analytics';
 import { Demo } from '../../demo';
 import { FocusTrap } from '@angular/cdk/a11y';
+import { FeatureFlagDirective } from '../feature-flag-directive';
+import { HttpClient, httpResource } from '@angular/common/http';
 
 @Component({
   selector: 'app-user',
-  imports: [NgOptimizedImage, NgComponentOutlet],
+  imports: [NgOptimizedImage, NgComponentOutlet, FeatureFlagDirective, JsonPipe],
   templateUrl: './user.html',
   styleUrl: './user.scss'
 })
@@ -17,8 +19,8 @@ export class User {
   greet(strings: TemplateStringsArray, name: string) {
     return strings[0] + name + strings[1] + '!';
   }
-  readonly attacks = [    { magicDamage: 10 },    { physicalDamage: 10 },    
-    { magicDamage: 10, physicalDamage: 10 },  ];
+  readonly attacks = [    { magicDamage: 10 },    { physicalDamage: 20 },    
+    { magicDamage: 10, physicalDamage: 20 },  { magicDamage: 10, physicalDamage: 20, newDamage: 30 },  ];
 
   //old way of creating components
     private _cmpRef?: ComponentRef<Dummy>;
@@ -85,9 +87,25 @@ injector.destroy();
 
   hasPermission = input(true);
  task = input<Task|undefined>(undefined); // Assume Task type is defined
-
+  todoId = signal(1);
  readonly property = input('123'); 
-
+ todoResource = resource({
+    loader: () => {
+      // return Promise.resolve({ id: 1, title: "Hello World", completed: false });
+        //  return fetch(`https://jsonplaceholder.typicode.com/todos?_limit=10`)
+        // .then((res) => res.json() as Promise<Todo[]>);
+             return fetch(
+        `https://jsonplaceholder.typicode.com/todos/${this.todoId()}`
+      ).then((res) => res.json() as Promise<Todo>);
+    },
+  });
+  updateTodo() {
+    this.todoResource.value.update((value) => {
+      if (!value) return undefined;
+      
+      return { ...value, title: "updated" };
+    });
+  }
  res(){
 //   const userId: Signal<string> = getUserId();
 // const userResource = resource({
@@ -99,24 +117,27 @@ injector.destroy();
 //   },
 // });
  }
+  products = httpResource<any[]>(() => `https://jsonplaceholder.typicode.com/todos/${this.todoId()}`);
 
-  // dataStream = resource({
-  //   stream: () => {
-  //     return new Promise<Signal<ResourceStreamItem<string[]>>>((resolve) => {
-  //       const resourceResult = signal<{ value: string[] }>({
-  //         value: [],
-  //       });
+  dataStream = resource({
+    stream: () => {
+      return new Promise<Signal<ResourceStreamItem<string[]>>>((resolve) => {
+        const resourceResult = signal<{ value: string[] }>({
+          value: [],
+        });
 
-  //       this.socket.onmessage = event => {
-  //         resourceResult.update(current => ({
-  //            value: [...current.value, event.data]
-  //         });
-  //       };
+        // this.socket.onmessage = event => {
+        //   resourceResult.update(current => ({
+        //      value: [...current.value, event.data]
+        //   });
+        // };
 
-  //       resolve(resourceResult);
-  //     });
-  //   },
-  // });
+        resolve(resourceResult);
+      });
+    },
+  });
+
+  
 
   // userId = signal(1);
   // userResource = httpResource<User>(() => 
@@ -159,6 +180,14 @@ colWidth;
   trackFn() {
     // ... body
   }
+
+    isNewFeatureEnabled = signal(true);
+
+  toggleFeature() {
+    // Update the signal's value, which will automatically trigger the
+    // directive's setter to re-evaluate the condition.
+    this.isNewFeatureEnabled.update(enabled => !enabled);
+  }
 }
 
 export interface Task {
@@ -174,3 +203,8 @@ export const task: Task = {
 };
 
 
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+}

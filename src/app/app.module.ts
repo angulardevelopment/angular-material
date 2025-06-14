@@ -17,7 +17,7 @@ import { NgxLoadingModule } from "ngx-loading";
 
 @NgModule({
   declarations: [
-    AppComponent,
+    // AppComponent,
     MaterialComponent,
     PrimengComponent
   ],
@@ -36,6 +36,6 @@ import { NgxLoadingModule } from "ngx-loading";
     MatButtonModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [] // AppComponent
 })
 export class AppModule { }

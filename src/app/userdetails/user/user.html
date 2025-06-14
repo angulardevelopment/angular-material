@@ -10,18 +10,30 @@ Output: <p>Hello, John!</p>
 <hr>
 {{ 2 ** 3 }}
 <hr>
-@for (attack of attacks; track attack) { @let hasMagicDamage = 'magicDamage' in attack; 
-@if (hasMagicDamage) { <p>{{
-  `Dealt ${attack.magicDamage} points of magic damage.` }}</p> } 
+@for (attack of attacks; track attack) { 
+  @let hasMagicDamage = 'magicDamage' in attack; 
+@if (hasMagicDamage) { 
+  <p>{{
+  `Dealt ${attack.magicDamage} points of magic damage.` }}
+  </p> } 
   @let hasPhysicalDamage = 'physicalDamage' in attack;
-@if (hasPhysicalDamage) { <p>{{ `Dealt ${attack.physicalDamage} points of physical damage.` }}</p> } }
+@if (hasPhysicalDamage) { <p>{{ `Dealt ${attack.physicalDamage} points of physical damage.` }}</p> }
+
+  @let hasNewDamage = 'newDamage' in attack;
+@if (hasNewDamage) { <p>{{ `Dealt ${attack.newDamage} points of new damage.` }}</p> }
+}
+
+
 Output: Lists damage dealt, only showing magic or physical damage if present in the attack object.
 <hr>
 <ng-container #container />
 <hr>
-<ng-container [ngComponentOutlet]="myComponent" [ngComponentOutletInputs]="myComponentInput()"
+<ng-container 
+[ngComponentOutlet]="myComponent" 
+[ngComponentOutletInputs]="myComponentInput()"
   [ngComponentOutletContent]="contentNodes()" 
-  [ngComponentOutletInjector]="myInjector" #outlet="ngComponentOutlet" />
+  [ngComponentOutletInjector]="myInjector" 
+  #outlet="ngComponentOutlet" />
 <ng-template #emptyState>
   <p>Empty State</p>
 </ng-template>
@@ -33,14 +45,31 @@ Output: Lists damage dealt, only showing magic or physical damage if present in 
   Run
 </button>
 <hr>
-<div *appFeatureFlag="true"></div>
+<div *appFeatureFlag="isNewFeatureEnabled()">
+  The entire new dashboard component would go here
+  <!-- <app-new-dashboard></app-new-dashboard> -->
+</div>
+<button  (click)="toggleFeature()">toggleFeature</button>
 <hr>
 <h2>Child Component property: {{ property() }}</h2>
 <hr>
-<!-- {{ dataStream.value() }} -->
+<div>
+
+{{ dataStream.value() }}
+{{ (todoResource.value() | json) }}
+{{(todoResource.status())}}
+{{(todoResource.error())}}
+<button (click)="updateTodo()">Update</button>
+</div>
 <hr>
 <!-- {{ userResource.value() | json }} -->
+  <div>
+   {{ products.value() | json }}
+  </div>
   <hr>
+  <div>
+
+  </div>
   @defer (hydrate on viewport) {
   <!-- <shopping-cart/> -->
 }
@@ -52,7 +81,7 @@ Output: Lists damage dealt, only showing magic or physical damage if present in 
 <!-- {{ name in person }} -->
 
 <hr>
-<div [class]="`layout col-${colWidth}`"></div>
+<div [class]="`layout col-${colWidth}`">layout</div>
 <hr>
 <!-- @for (user of users; track trackFn) {
       <!-- ... ->
